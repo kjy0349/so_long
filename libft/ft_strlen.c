@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 19:55:06 by jeykim           ###   ########.fr       */
+/*   Created: 2022/03/07 15:23:06 by jeykim            #+#    #+#             */
+/*   Updated: 2022/08/04 16:02:56 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <stdlib.h>
-# include <stdio.h>
+size_t	ft_strlen(const char *s)
+{
+	int	i;
 
-typedef struct map {
-	int		len;
-	int		lines;
-	int		item;
-	char	**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*g_ptr;
-	void	*p_ptr;
-	void	*t_ptr;
-	void	*e_ptr;
-	void	*c_ptr;
-}	t_map;
-
-#endif
+	i = 0;
+	while (*s != '\0')
+	{
+		i++;
+		s++;
+	}
+	return (i);
+}

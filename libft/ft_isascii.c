@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 19:55:06 by jeykim           ###   ########.fr       */
+/*   Created: 2022/03/07 15:14:52 by jeykim            #+#    #+#             */
+/*   Updated: 2022/04/02 13:10:55 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <stdlib.h>
-# include <stdio.h>
-
-typedef struct map {
-	int		len;
-	int		lines;
-	int		item;
-	char	**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*g_ptr;
-	void	*p_ptr;
-	void	*t_ptr;
-	void	*e_ptr;
-	void	*c_ptr;
-}	t_map;
-
-#endif
+int	ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
+}

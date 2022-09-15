@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 19:55:06 by jeykim           ###   ########.fr       */
+/*   Created: 2022/03/29 18:17:01 by jeykim            #+#    #+#             */
+/*   Updated: 2022/05/23 23:10:45 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <stdlib.h>
-# include <stdio.h>
-
-typedef struct map {
-	int		len;
-	int		lines;
-	int		item;
-	char	**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*g_ptr;
-	void	*p_ptr;
-	void	*t_ptr;
-	void	*e_ptr;
-	void	*c_ptr;
-}	t_map;
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

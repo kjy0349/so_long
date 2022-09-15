@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 19:55:06 by jeykim           ###   ########.fr       */
+/*   Created: 2022/03/15 14:00:41 by jeykim            #+#    #+#             */
+/*   Updated: 2022/04/05 14:30:51 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include <stdlib.h>
-# include <stdio.h>
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
 
-typedef struct map {
-	int		len;
-	int		lines;
-	int		item;
-	char	**map;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*g_ptr;
-	void	*p_ptr;
-	void	*t_ptr;
-	void	*e_ptr;
-	void	*c_ptr;
-}	t_map;
-
-#endif
+	i = 0;
+	if (n == 0)
+		return (0);
+	if (n > 0)
+	{
+		while (i < n - 1 && s1[i] != '\0' && s2[i] != '\0')
+		{
+			if (s1[i] != s2[i])
+				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+			i++;
+		}
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
