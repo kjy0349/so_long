@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 19:55:06 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/15 20:17:36 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "mlx/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
+
+# define LEN 32
 
 typedef struct map {
 	int		len;

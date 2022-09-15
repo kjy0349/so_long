@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 20:02:12 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/15 20:17:48 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,46 +82,47 @@ int	check_map(t_map info)
 	return (1);
 }
 
-void	draw_image(t_map info, char elem, int x, int y)
+void	draw_image(t_map *info, char elem, int x, int y)
 {
 	if (elem == '1')
 	{
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.g_ptr, x, y);
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.t_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->t_ptr, x, y);
 	}
 	else if (elem == '0')
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.g_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
 	else if (elem == 'P')
 	{
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.g_ptr, x, y);
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.p_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->p_ptr, x, y);
 	}
 	else if (elem == 'C')
 	{
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.g_ptr, x, y);
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.c_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->c_ptr, x, y);
 	}
 	else
 	{
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.g_ptr, x, y);
-		mlx_put_image_to_window(info.mlx_ptr, info.win_ptr, info.e_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
+		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->e_ptr, x, y);
 	}
 }
 
-void	draw_map(t_map info)
+void	draw_map(t_map *info)
 {
 	char	**map;
 	int		x;
 	int		y;
 
-	map = info.map;
+	map = info->map;
 	x = 0;
 	while (*map)
 	{
 		y = 0;
-		while (y < info.len)
+		while (y < info->len)
 		{
-			draw_image(info, (*map)[y], x, y);
+			mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x * LEN, y * LEN);
+			// draw_image(info, (*map)[y], x, y);
 			y++;
 		}
 		x++;
@@ -129,37 +130,32 @@ void	draw_map(t_map info)
 	}
 }
 
-void	get_ptrs(t_map info, int *width, int *height)
+void	get_ptrs(t_map *info, int *width, int *height)
 {
-	void	*grass_ptr;
-	void	*tree_ptr;
-	void	*player_ptr;
-	void	*exit_ptr;
-
-	info.g_ptr = \
-	mlx_xpm_file_to_image(info.mlx_ptr, "./textures/grass.xpm", width, height);
-	info.t_ptr = \
-	mlx_xpm_file_to_image(info.mlx_ptr, "./textures/tree.xpm", width, height);
-	info.p_ptr = \
-	mlx_xpm_file_to_image(info.mlx_ptr, "./textures/player.xpm", width, height);
-	info.e_ptr = \
-	mlx_xpm_file_to_image(info.mlx_ptr, "./textures/exit.xpm", width, height);
-	info.e_ptr = \
-	mlx_xpm_file_to_image(info.mlx_ptr, "./textures/coin.xpm", width, height);
+	info->g_ptr = \
+	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/grass.xpm", width, height);
+	info->t_ptr = \
+	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/tree.xpm", width, height);
+	info->p_ptr = \
+	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/plr.xpm", width, height);
+	info->e_ptr = \
+	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/exit.xpm", width, height);
+	info->e_ptr = \
+	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/coin.xpm", width, height);
 	draw_map(info);
 }
 
-void	draw_window(t_map info)
+void	draw_window(t_map *info)
 {
 	int		width;
 	int		height;
 
-	info.win_ptr = \
-	mlx_new_window(info.mlx_ptr, 32 * info.len, 32 * info.lines, "so_long");
-	width = 32;
-	height = 32;
+	info->win_ptr = \
+	mlx_new_window(info->mlx_ptr, LEN * info->len, LEN * info->lines, "so_long");
+	width = LEN;
+	height = LEN;
 	get_ptrs(info, &width, &height);
-	mlx_loop(info.mlx_ptr);
+	mlx_loop(info->mlx_ptr);
 }
 
 int	main(int argc, char *argv[])
@@ -196,7 +192,7 @@ int	main(int argc, char *argv[])
 		info.mlx_ptr = mlx_init();
 		if (!info.mlx_ptr)
 			errfree_exit("mlx init failed", info);
-		draw_window(info);
+		draw_window(&info);
 	}
 	else
 		errfree_exit("Invaild map input", info);
