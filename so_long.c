@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/16 16:04:25 by jeyoung          ###   ########.fr       */
+/*   Updated: 2022/09/16 17:09:48 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	draw_image_window(t_map *info, void *draw_ptr, int x, int y)
 
 void	draw_image(t_map *info, char elem, int x, int y)
 {
+	draw_image_window(info, info->g_ptr, x, y);
+	draw_image_window(info, info->t_ptr, x, y);
 	if (elem == '1')
 	{
 		draw_image_window(info, info->g_ptr, x, y);
@@ -111,7 +113,7 @@ void	draw_image(t_map *info, char elem, int x, int y)
 		draw_image_window(info, info->g_ptr, x, y);
 		draw_image_window(info, info->c_ptr, x, y);
 	}
-	else
+	else if (elem == 'E')
 	{
 		draw_image_window(info, info->g_ptr, x, y);
 		draw_image_window(info, info->e_ptr, x, y);
@@ -131,8 +133,7 @@ void	draw_map(t_map *info)
 		y = 0;
 		while (y < info->len)
 		{
-			// mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x * LEN, y * LEN);
-			draw_image(info, (*map)[y], x, y);
+			draw_image(info, (*map)[y], y * LEN, x * LEN);
 			y++;
 		}
 		x++;
@@ -150,7 +151,7 @@ void	get_ptrs(t_map *info, int *width, int *height)
 	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/plr.xpm", width, height);
 	info->e_ptr = \
 	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/exit.xpm", width, height);
-	info->e_ptr = \
+	info->c_ptr = \
 	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/coin.xpm", width, height);
 	draw_map(info);
 }
@@ -173,6 +174,7 @@ int	main(int argc, char *argv[])
 	int		fd;
 	char	*lines;
 	char	*row;
+	char	*temp;
 	t_map	info;
 
 	if (argc != 2)
@@ -190,12 +192,18 @@ int	main(int argc, char *argv[])
 		lines = ft_strdup("");
 		while (row)
 		{
-			lines = ft_strjoin(lines, row);
+			temp = (char *)malloc(sizeof(char) * ft_strlen(lines) + 1);
+			ft_strlcpy(temp, lines, ft_strlen(lines) + 1);
+			free(lines);
+			lines = ft_strjoin(temp, row);
+			free(row);
 			info.lines++;
+			free(temp);
 			row = get_next_line(fd);
 		}
 		info.map = ft_split(lines, '\n');
 		free(lines);
+		free(row);
 	}
 	if (check_map(info) > 0)
 	{
