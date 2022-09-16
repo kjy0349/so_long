@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/16 16:23:37 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/16 19:59:17 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include <stdio.h>
 
 # define LEN 32
+# define X_EVENT_KEY_PRESS			2
+# define X_EVENT_KEY_RELEASE		3
+# define KEY_ESC		53
+# define KEY_W			13
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
 
 typedef struct map {
 	int		len;
@@ -34,6 +41,13 @@ typedef struct map {
 	void	*t_ptr;
 	void	*e_ptr;
 	void	*c_ptr;
+	int		all_c;
+	int		c_cnt;
 }	t_map;
+
+typedef struct param{
+	int	x;
+	int	y;
+}	t_param;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/16 17:09:48 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/16 20:04:34 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	check_map(t_map info)
 	int		l_idx;
 
 	lines = info.map;
-	idx = 0;
 	l_idx = 0;
 	while (*lines)
 	{
@@ -133,6 +132,8 @@ void	draw_map(t_map *info)
 		y = 0;
 		while (y < info->len)
 		{
+			if (*map[y] == 'C')
+				info->all_c++;
 			draw_image(info, (*map)[y], y * LEN, x * LEN);
 			y++;
 		}
@@ -141,7 +142,7 @@ void	draw_map(t_map *info)
 	}
 }
 
-void	get_ptrs(t_map *info, int *width, int *height)
+void	get_ptrs(t_param *param, t_map *info, int *width, int *height)
 {
 	info->g_ptr = \
 	mlx_xpm_file_to_image(info->mlx_ptr, "./textures/grass.xpm", width, height);
@@ -160,12 +161,14 @@ void	draw_window(t_map *info)
 {
 	int		width;
 	int		height;
+	t_param	param;
 
 	info->win_ptr = \
 	mlx_new_window(info->mlx_ptr, LEN * info->len, LEN * info->lines, "solong");
 	width = LEN;
 	height = LEN;
-	get_ptrs(info, &width, &height);
+	get_ptrs(&param, info, &width, &height);
+	mlx_hook(info->win_ptr, X_EVENT_KEY_RELEASE, 0, &press_key, &param);
 	mlx_loop(info->mlx_ptr);
 }
 
@@ -189,6 +192,8 @@ int	main(int argc, char *argv[])
 	{
 		info.len = ft_strlen(row) - 1;
 		info.lines = 0;
+		info.all_c = 0;
+		info.c_cnt = 0;
 		lines = ft_strdup("");
 		while (row)
 		{
@@ -204,6 +209,7 @@ int	main(int argc, char *argv[])
 		info.map = ft_split(lines, '\n');
 		free(lines);
 		free(row);
+		close(fd);
 	}
 	if (check_map(info) > 0)
 	{
