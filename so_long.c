@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/15 20:17:48 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/16 16:04:25 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,39 @@ int	check_map(t_map info)
 	return (1);
 }
 
+void	draw_image_window(t_map *info, void *draw_ptr, int x, int y)
+{
+	void	*m_ptr;
+	void	*w_ptr;
+
+	m_ptr = info->mlx_ptr;
+	w_ptr = info->win_ptr;
+	mlx_put_image_to_window(m_ptr, w_ptr, draw_ptr, x, y);
+}
+
 void	draw_image(t_map *info, char elem, int x, int y)
 {
 	if (elem == '1')
 	{
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->t_ptr, x, y);
+		draw_image_window(info, info->g_ptr, x, y);
+		draw_image_window(info, info->t_ptr, x, y);
 	}
 	else if (elem == '0')
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
+		draw_image_window(info, info->g_ptr, x, y);
 	else if (elem == 'P')
 	{
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->p_ptr, x, y);
+		draw_image_window(info, info->g_ptr, x, y);
+		draw_image_window(info, info->p_ptr, x, y);
 	}
 	else if (elem == 'C')
 	{
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->c_ptr, x, y);
+		draw_image_window(info, info->g_ptr, x, y);
+		draw_image_window(info, info->c_ptr, x, y);
 	}
 	else
 	{
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x, y);
-		mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->e_ptr, x, y);
+		draw_image_window(info, info->g_ptr, x, y);
+		draw_image_window(info, info->e_ptr, x, y);
 	}
 }
 
@@ -121,8 +131,8 @@ void	draw_map(t_map *info)
 		y = 0;
 		while (y < info->len)
 		{
-			mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x * LEN, y * LEN);
-			// draw_image(info, (*map)[y], x, y);
+			// mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->g_ptr, x * LEN, y * LEN);
+			draw_image(info, (*map)[y], x, y);
 			y++;
 		}
 		x++;
@@ -151,7 +161,7 @@ void	draw_window(t_map *info)
 	int		height;
 
 	info->win_ptr = \
-	mlx_new_window(info->mlx_ptr, LEN * info->len, LEN * info->lines, "so_long");
+	mlx_new_window(info->mlx_ptr, LEN * info->len, LEN * info->lines, "solong");
 	width = LEN;
 	height = LEN;
 	get_ptrs(info, &width, &height);
