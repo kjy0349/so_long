@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/16 19:59:17 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 15:42:58 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 typedef struct map {
 	int		len;
 	int		lines;
-	int		item;
 	char	**map;
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -43,11 +42,35 @@ typedef struct map {
 	void	*c_ptr;
 	int		all_c;
 	int		c_cnt;
+	int		p_cnt;
+	int		e_cnt;
+	int		step;
 }	t_map;
 
-typedef struct param{
+typedef struct param
+{
 	int	x;
 	int	y;
 }	t_param;
+
+void	init_info(t_map *info);
+void	get_map(t_map *info, int fd);
+int		check_map(t_map *info);
+void	free_map(t_map info);
+int		elem_check(t_map *info, char elem);
+void	err_exit(const char *str);
+void	errfree_exit(const char *str, t_map info);
+void	draw_window(t_map *info);
+void	get_ptrs(t_map *info, int *width, int *height);
+void	draw_map(t_map *info);
+void	draw_image(t_map *info, char elem, int x, int y);
+void	draw_image_window(t_map *info, void *draw_ptr, int x, int y);
+void	move_w(t_map *info);
+void	move_s(t_map *info);
+void	move_a(t_map *info);
+void	move_d(t_map *info);
+int		press_key(int keycode, t_map *info);
+void	game_clear(t_map *info);
+void	get_cord(t_map *info, int *x, int *y);
 
 #endif
