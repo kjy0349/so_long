@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"so_long.h": "c",
-		"unistd.h": "c"
-	},
-	"terminal.integrated.env.osx": {
-		"DYLD_LIBRARY_PATH": "./mlx"
-	}	
-}

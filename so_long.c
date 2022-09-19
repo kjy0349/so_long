@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 15:55:59 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 17:22:59 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_info(t_map *info)
 {
-	info->lines = 1;
+	info->lines = 0;
 	info->c_cnt = 0;
 	info->all_c = 0;
 	info->p_cnt = 0;
@@ -30,7 +30,7 @@ void	get_map(t_map *info, int fd)
 
 	row = get_next_line(fd);
 	if (!row)
-		err_exit("Invaild map file");
+		err_exit("Error\n");
 	init_info(info);
 	lines = ft_strdup("");
 	while (row)
@@ -40,7 +40,6 @@ void	get_map(t_map *info, int fd)
 		free(lines);
 		lines = ft_strjoin(temp, row);
 		free(row);
-		(info->lines)++;
 		free(temp);
 		row = get_next_line(fd);
 	}
@@ -54,23 +53,26 @@ void	get_map(t_map *info, int fd)
 int	main(int argc, char *argv[])
 {
 	int		fd;
-	char	*row;
 	t_map	info;
+	char	*ptr;
 
 	if (argc != 2)
-		err_exit("Invaild map input");
+		err_exit("Error");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		err_exit("Invaild map file");
+		err_exit("Error");
+	ptr = ft_strrchr(argv[1], '.');
+	if (ft_memcmp(ptr, ".ber", 5) != 0)
+		err_exit("Error");
 	get_map(&info, fd);
 	if (check_map(&info) > 0 && info.all_c > 0)
 	{
 		info.mlx_ptr = mlx_init();
 		if (!info.mlx_ptr)
-			errfree_exit("mlx init failed", info);
+			errfree_exit("Error", info);
 		draw_window(&info);
 	}
 	else
-		errfree_exit("Invaild map input", info);
+		errfree_exit("Error", info);
 	return (0);
 }

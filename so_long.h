@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 15:42:58 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 17:14:42 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdio.h>
 
 # define LEN 32
-# define X_EVENT_KEY_PRESS			2
 # define X_EVENT_KEY_RELEASE		3
+# define X_EVENT_KEY_EXIT   17
 # define KEY_ESC		53
 # define KEY_W			13
 # define KEY_A			0
@@ -72,5 +72,6 @@ void	move_d(t_map *info);
 int		press_key(int keycode, t_map *info);
 void	game_clear(t_map *info);
 void	get_cord(t_map *info, int *x, int *y);
+int		exit_game(t_map *info);
 
 #endif

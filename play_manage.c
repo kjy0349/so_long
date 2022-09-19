@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:44:26 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 15:58:14 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 16:28:40 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	get_cord(t_map *info, int *x, int *y)
 }
 
 void	game_clear(t_map *info)
-{
+{	
+	mlx_destroy_image(info->mlx_ptr, info->win_ptr);
 	exit(0);
 }
 
@@ -54,4 +55,10 @@ int	press_key(int keycode, t_map *info)
 		exit(0);
 	printf("%d\n", info->step);
 	return (0);
+}
+
+int	exit_game(t_map *info)
+{
+	mlx_destroy_window(info->mlx_ptr, info->win_ptr);
+	exit(0);
 }

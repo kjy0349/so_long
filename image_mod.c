@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:16:06 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 15:56:02 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 16:18:43 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	draw_window(t_map *info)
 	height = LEN;
 	get_ptrs(info, &width, &height);
 	mlx_hook(info->win_ptr, X_EVENT_KEY_RELEASE, 0, &press_key, info);
+	mlx_hook(info->win_ptr, X_EVENT_KEY_EXIT, 0, &exit_game, info);
 	mlx_loop(info->mlx_ptr);
 }
 
