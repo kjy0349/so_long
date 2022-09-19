@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 17:14:42 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:10:23 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ typedef struct param
 }	t_param;
 
 void	init_info(t_map *info);
-void	get_map(t_map *info, int fd);
+int		get_map(t_map *info, int fd);
 int		check_map(t_map *info);
-void	free_map(t_map info);
+void	free_map(t_map *info);
 int		elem_check(t_map *info, char elem);
 void	err_exit(const char *str);
-void	errfree_exit(const char *str, t_map info);
+void	errfree_exit(const char *str, t_map *info);
 void	draw_window(t_map *info);
 void	get_ptrs(t_map *info, int *width, int *height);
 void	draw_map(t_map *info);

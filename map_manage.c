@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:19:56 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 17:18:31 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:15:59 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	check_map(t_map *info)
 	while (*lines)
 	{
 		idx = 0;
-		if ((int)ft_strlen(*lines) != info->len)
-			return (-1);
 		while (idx < info->len)
 		{
 			if ((l_idx == 0 || l_idx == (info->lines) - 1 \
@@ -42,18 +40,19 @@ int	check_map(t_map *info)
 	return (1);
 }
 
-void	free_map(t_map info)
+void	free_map(t_map *info)
 {
 	char	**map;
 
-	map = info.map;
+	map = info->map;
 	while (*map)
 	{
 		free(*map);
 		*map = NULL;
 		map++;
 	}
-	free(info.map);
+	free(info->map);
+	info->map = NULL;
 }
 
 int	elem_check(t_map *info, char elem)

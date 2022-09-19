@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:16:06 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 16:18:43 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/19 19:32:15 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	draw_window(t_map *info)
 	int		width;
 	int		height;
 
-	info->win_ptr = \
-	mlx_new_window(info->mlx_ptr, LEN * info->len, LEN * info->lines, "solong");
+	info->win_ptr = mlx_new_window(info->mlx_ptr, LEN * info->len, \
+	LEN * info->lines, "solong");
 	width = LEN;
 	height = LEN;
 	get_ptrs(info, &width, &height);
