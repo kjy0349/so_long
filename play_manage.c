@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   play_manage.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:44:26 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 19:44:57 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:35:35 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	get_cord(t_map *info, int *x, int *y)
 void	game_clear(t_map *info)
 {	
 	free_map(info);
-	mlx_destroy_window(info->mlx_ptr, info->win_ptr);
 	exit(0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:40 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 20:10:23 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:05:58 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_info(t_map *info);
 int		get_map(t_map *info, int fd);
 int		check_map(t_map *info);
 void	free_map(t_map *info);
+void	free_lines_fd(char **lines, char **row, int fd);
 int		elem_check(t_map *info, char elem);
 void	err_exit(const char *str);
 void	errfree_exit(const char *str, t_map *info);

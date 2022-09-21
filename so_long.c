@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 20:56:27 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:35:39 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	init_info(t_map *info)
 	info->step = 0;
 }
 
-int	free_lines_fd(char **lines, char **row, int fd)
+void	free_lines_fd(char **lines, char **row, int fd)
 {
 	free(*lines);
 	free(*row);
 	close(fd);
-	return (-1);
 }
 
 int	get_map(t_map *info, int fd)
@@ -41,8 +40,7 @@ int	get_map(t_map *info, int fd)
 		err_exit("Error\n");
 	init_info(info);
 	temp = ft_strtrim(row, "\n");
-	ft_strlcpy(row, temp, ft_strlen(temp) + 1);
-	info->len = ft_strlen(row);
+	info->len = ft_strlen(temp);
 	free(temp);
 	lines = ft_strdup("");
 	while (row)
@@ -54,13 +52,13 @@ int	get_map(t_map *info, int fd)
 		free(temp);
 		free(row);
 		row = get_next_line(fd);
+		if (!row)
+			break ;
 		temp = ft_strtrim(row, "\n");
-		free(row);
-		ft_strlcpy(row, temp, ft_strlen(temp) + 1);
-		if (!row || (info->len != (int)ft_strlen(row)))
+		if ((info->len != (int)ft_strlen(temp)))
 		{
-			printf("%s %d\n", row, info->len);
-			return (free_lines_fd(&lines, &row, fd));
+			free_lines_fd(&lines, &row, fd);
+			return (-1);
 		}
 		free(temp);
 	}
@@ -81,7 +79,7 @@ int	main(int argc, char *argv[])
 	if (fd < 0)
 		err_exit("Error");
 	ptr = ft_strrchr(argv[1], '.');
-	if (ft_memcmp(ptr, ".ber", 5) != 0)
+	if (!ptr || ft_memcmp(ptr, ".ber", 5) != 0)
 		err_exit("Error");
 	if (get_map(&info, fd) > 0 && check_map(&info) > 0 && info.all_c > 0)
 	{

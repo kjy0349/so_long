@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_mod.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:16:06 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 19:32:15 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:31:45 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_window(t_map *info)
 	int		height;
 
 	info->win_ptr = mlx_new_window(info->mlx_ptr, LEN * info->len, \
-	LEN * info->lines, "solong");
+	LEN * info->lines, "so_long");
 	width = LEN;
 	height = LEN;
 	get_ptrs(info, &width, &height);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_manage.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:18:11 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/19 20:16:09 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/21 09:39:50 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	err_exit(const char *str)
 {
-	perror(str);
+	printf("%s", str);
 	exit(1);
 }
 
 void	errfree_exit(const char *str, t_map *info)
 {
 	free_map(info);
-	perror(str);
+	printf("%s", str);
 	exit(1);
 }
