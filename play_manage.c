@@ -6,7 +6,7 @@
 /*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:44:26 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/21 10:35:35 by jeyoung          ###   ########.fr       */
+/*   Updated: 2022/09/21 11:09:05 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	get_cord(t_map *info, int *x, int *y)
 void	game_clear(t_map *info)
 {	
 	free_map(info);
+	mlx_destroy_window(info->mlx_ptr, info->win_ptr);
 	exit(0);
 }
 
@@ -52,13 +53,14 @@ int	press_key(int keycode, t_map *info)
 	else if (keycode == KEY_D)
 		move_d(info);
 	else if (keycode == KEY_ESC)
-		exit(0);
+		game_clear(info);
 	printf("%d\n", info->step);
 	return (0);
 }
 
 int	exit_game(t_map *info)
 {
+	free_map(info);
 	mlx_destroy_window(info->mlx_ptr, info->win_ptr);
 	exit(0);
 }

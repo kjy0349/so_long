@@ -6,7 +6,7 @@
 /*   By: jeyoung <jeyoung@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/21 10:35:39 by jeyoung          ###   ########.fr       */
+/*   Updated: 2022/09/21 11:16:59 by jeyoung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,27 @@ void	init_info(t_map *info)
 	info->step = 0;
 }
 
-void	free_lines_fd(char **lines, char **row, int fd)
+int	free_lines_fd(char **lines, char **row, int fd, int ret)
 {
 	free(*lines);
 	free(*row);
 	close(fd);
+	return (ret);
+}
+
+int	map_loop(char **temp, char **lines, char **row, int fd)
+{
+	*temp = (char *)malloc(sizeof(char) * ft_strlen(*lines) + 1);
+	ft_strlcpy(*temp, *lines, ft_strlen(*lines) + 1);
+	free(*lines);
+	*lines = ft_strjoin(*temp, *row);
+	free(*temp);
+	free(*row);
+	*row = get_next_line(fd);
+	if (!*row)
+		return (-1);
+	*temp = ft_strtrim(*row, "\n");
+	return (1);
 }
 
 int	get_map(t_map *info, int fd)
@@ -45,26 +61,14 @@ int	get_map(t_map *info, int fd)
 	lines = ft_strdup("");
 	while (row)
 	{
-		temp = (char *)malloc(sizeof(char) * ft_strlen(lines) + 1);
-		ft_strlcpy(temp, lines, ft_strlen(lines) + 1);
-		free(lines);
-		lines = ft_strjoin(temp, row);
-		free(temp);
-		free(row);
-		row = get_next_line(fd);
-		if (!row)
+		if (map_loop(&temp, &lines, &row, fd) < 0)
 			break ;
-		temp = ft_strtrim(row, "\n");
 		if ((info->len != (int)ft_strlen(temp)))
-		{
-			free_lines_fd(&lines, &row, fd);
-			return (-1);
-		}
+			return (free_lines_fd(&lines, &row, fd, -1));
 		free(temp);
 	}
 	info->map = ft_split(lines, '\n');
-	free_lines_fd(&lines, &row, fd);
-	return (1);
+	return (free_lines_fd(&lines, &row, fd, 1));
 }
 
 int	main(int argc, char *argv[])
