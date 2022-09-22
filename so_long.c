@@ -6,7 +6,7 @@
 /*   By: jeykim <jeykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:00:10 by jeykim            #+#    #+#             */
-/*   Updated: 2022/09/22 10:39:29 by jeykim           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:26:23 by jeykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	get_map(t_map *info, int fd)
 		if (map_loop(&temp, &lines, &row, fd) < 0)
 			break ;
 		if ((info->len != (int)ft_strlen(temp)))
+		{
+			free(temp);
 			return (free_lines_fd(&lines, &row, fd, -1));
+		}
 		free(temp);
 	}
 	info->map = ft_split(lines, '\n');
